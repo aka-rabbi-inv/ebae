@@ -1,0 +1,5 @@
+.env
+.eslintcache
+.DS_Store
+/seed
+node_modules
