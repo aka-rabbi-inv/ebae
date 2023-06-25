@@ -6,6 +6,7 @@ import { setOpen } from "../../store/reducer/loaderReducer";
 import BackDrop from "../../components/BackDrop/BackDrop";
 import { setLogout } from "../../store/reducer/userReducer";
 import SignIn from "../../components/SignIn/SignIn";
+import { setUserDetails } from "../../store/reducer/userReducer";
 
 const Login = ({ logOut }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Login = ({ logOut }) => {
     dispatch(setOpen(true));
     if (logOut) {
       dispatch(setLogout());
+      dispatch(setUserDetails({}));
       navigate("/login");
     } else if (loggedIn) {
       navigate("/");

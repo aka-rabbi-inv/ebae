@@ -48,41 +48,44 @@ const User = () => {
   };
 
   useEffect(() => {
-    let filters = [];
-    if (searchParams.size) {
-      filters.push({ eq: searchParams.get("order-id") });
-    }
-    dispatch(getMyOrders(token, filters));
+    if (!userDetails.username) navigate("/login");
+    // let filters = [];
+    // if (searchParams.size) {
+    //   filters.push({ eq: searchParams.get("order-id") });
+    // }
+    // dispatch(getMyOrders(token, filters));
     dispatch(getCurrentUser(token));
   }, []);
 
-  useEffect(() => {
-    if (!orders || orders.length === 0) return;
-    const orderCopy = [...orders];
-    const data = chunk(orderCopy.reverse(), 5);
-    setChunks(data.length);
-    const modifiedOrders = data[page].map((item) => {
-      const totalPrice = item.products
-        .reduce((acc, item) => {
-          return acc + item.productId.price * item.quantity;
-        }, 0)
-        .toFixed(2);
-      return { ...item, totalPrice };
-    });
-    setOrdersWithStatus(modifiedOrders);
-  }, [orders, page]);
+  // useEffect(() => {
+  //   if (!orders || orders.length === 0) return;
+  //   const orderCopy = [...orders];
+  //   const data = chunk(orderCopy.reverse(), 5);
+  //   setChunks(data.length);
+  //   const modifiedOrders = data[page].map((item) => {
+  //     const totalPrice = item.products
+  //       .reduce((acc, item) => {
+  //         return acc + item.productId.price * item.quantity;
+  //       }, 0)
+  //       .toFixed(2);
+  //     return { ...item, totalPrice };
+  //   });
+  //   setOrdersWithStatus(modifiedOrders);
+  // }, [orders, page]);
 
   return (
-    <Grid
-      container
-      spacing={4}
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <EditUser allUserDetails={userDetails} isCurrent={true} />
-      <Grid item xs={12} md={7}>
-        <Box>
+    <>
+      {userDetails.username && (
+        <Grid
+          container
+          spacing={4}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <EditUser allUserDetails={userDetails} isCurrent={true} />
+          <Grid item xs={12} md={7}>
+            {/* <Box>
           <TextField
             label="search"
             type="text"
@@ -92,8 +95,8 @@ const User = () => {
           <IconButton color="#fff" onClick={(e) => setSearchParams(e.search)}>
             <SearchIcon />
           </IconButton>
-        </Box>
-        <Table size="small">
+        </Box> */}
+            {/* <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>Date</TableCell>
@@ -131,30 +134,32 @@ const User = () => {
                 </TableRow>
               ))}
           </TableBody>
-        </Table>
-        <Stack spacing={2} mt={4}>
+        </Table> */}
+            {/* <Stack spacing={2} mt={4}>
           <Pagination
             count={chunks}
             variant="outlined"
             shape="rounded"
             onChange={handlePagination}
           />
-        </Stack>
-      </Grid>
-      <Grid item xs={6} md={8}>
-        <Button
-          size="medium"
-          variant="outlined"
-          color="secondary"
-          onClick={() => {
-            navigate("/logout");
-          }}
-        >
-          Log Out
-        </Button>
-      </Grid>
-      <BackDrop open={open} />
-    </Grid>
+        </Stack> */}
+          </Grid>
+          <Grid item xs={6} md={8}>
+            <Button
+              size="medium"
+              variant="outlined"
+              color="secondary"
+              onClick={() => {
+                navigate("/logout");
+              }}
+            >
+              Log Out
+            </Button>
+          </Grid>
+          <BackDrop open={open} />
+        </Grid>
+      )}
+    </>
   );
 };
 

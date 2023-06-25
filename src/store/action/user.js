@@ -96,6 +96,11 @@ export const getCurrentUser = (token) => {
         },
       }
     );
+    if (response.data.err) {
+      dispatch(setToast(response.data.err.message));
+      dispatch(setOpen(false));
+      return;
+    }
     dispatch(setUserDetails(response.data));
     dispatch(setOpen(false));
   };
