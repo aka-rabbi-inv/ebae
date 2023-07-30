@@ -7,11 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const gif = useSelector((store) => store.loader.gif);
 
   useEffect(() => {
-    navigate("/404");
     dispatch(getGif(giphyURL));
   }, []);
 
@@ -22,9 +20,12 @@ const NotFound = () => {
         height: "350px",
         width: "100%",
         position: "relative",
-        backgroundSize: "auto",
+        backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+      }}
+      sx={{
+        top: "15vh",
       }}
     ></Box>
   );

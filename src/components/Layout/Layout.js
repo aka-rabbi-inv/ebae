@@ -22,8 +22,6 @@ export default function Layout({ children, title, background }) {
 
       <Box marginTop={5}>{children}</Box>
 
-      <Footer sx={{ mt: 20, mb: 4 }} />
-
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         autoHideDuration={3000}

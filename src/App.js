@@ -64,8 +64,11 @@ function App() {
         path="/logout"
         element={<Layout title="Login">{<Login logOut={true} />}</Layout>}
       />
-      <Route path="/cart" element={<Layout title="">{<Cart />}</Layout>} />
-      <Route path="/admin" element={<Layout title="">{<Admin />}</Layout>} />
+      <Route path="/cart" element={<Layout title="Cart">{<Cart />}</Layout>} />
+      <Route
+        path="/admin"
+        element={<Layout title="Dashboard">{<Admin />}</Layout>}
+      />
     </Routes>
   );
 }

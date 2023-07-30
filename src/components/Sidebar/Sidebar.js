@@ -101,7 +101,7 @@ export default function Sidebar() {
 
       <Divider />
 
-      <Footer sx={{ mt: "60vh", mb: 4 }} />
+      <Footer sx={{ position: "absolute", bottom: 12, left: 50 }} />
     </Box>
   );
 

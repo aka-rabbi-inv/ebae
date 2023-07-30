@@ -12,8 +12,8 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { keyframes } from "@mui/system";
 import styled from "@emotion/styled";
 import { checkout, getCart } from "../../store/action/user";
-
 import { Typography } from "@mui/material";
+import NotFound from "../404";
 
 const rattle = keyframes`
   0% {
@@ -92,20 +92,11 @@ const Cart = () => {
         </Grid>
       )}
       {(!products || products?.length === 0) && (
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h2"
-          mt={15}
-          sx={{
-            fontWeight: "bold",
-            padding: "0.25rem 0.5rem",
-            borderRadius: "3px",
-            color: "white",
-          }}
-        >
-          Cart is empty
-        </Typography>
+        <Grid item>
+          <NotFound />
+          <br></br>
+          <h1>&#128511; Cart is empty &#128511;</h1>
+        </Grid>
       )}
       {products?.length > 0 && (
         <>
