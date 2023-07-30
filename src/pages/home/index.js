@@ -82,23 +82,6 @@ const Home = () => {
                       image={process.env.REACT_APP_BASE_URL + product.image}
                       alt="product image"
                     />
-                    {product.discount > 0 && (
-                      <Typography
-                        sx={{
-                          position: "absolute",
-                          top: "10px",
-                          left: "10px",
-                          color: "white",
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          padding: "0.25rem 0.5rem",
-                          backgroundColor: "red",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        -{product.discount}%
-                      </Typography>
-                    )}
                   </Box>
                   <CardContent>
                     <Typography gutterBottom variant="p" component="div">
