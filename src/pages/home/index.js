@@ -38,7 +38,7 @@ const Home = () => {
   useEffect(() => {
     if (!products || products.length === 0) return;
     const productsCopy = [...products];
-    const data = chunk(productsCopy.reverse(), 5);
+    const data = chunk(productsCopy.reverse(), 10);
     setProductsLength(data.length);
     setProductsChunks(data[page]);
   }, [products, page]);

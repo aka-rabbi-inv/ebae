@@ -9,12 +9,11 @@ export default function Footer(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {"© "}
       <Link color="inherit" href="https://www.linkedin.com/in/fazlerabbiaka/">
         Fazle Rabbi
       </Link>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }

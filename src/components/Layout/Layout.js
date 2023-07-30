@@ -1,6 +1,5 @@
 import Navbar from "../Navbar/Navbar";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Footer from "../Footer/Footer";
 import Snackbar from "@mui/material/Snackbar";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,11 +19,11 @@ export default function Layout({ children, title, background }) {
       }}
     >
       <Navbar />
-      <Typography ml={2} mt={2} gutterBottom paragraph variant="h6">
-        {title}
-      </Typography>
-      {children}
+
+      <Box marginTop={5}>{children}</Box>
+
       <Footer sx={{ mt: 20, mb: 4 }} />
+
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         autoHideDuration={3000}
