@@ -13,6 +13,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+import LogoutIcon from "@mui/icons-material/Logout";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LoginIcon from "@mui/icons-material/Login";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Footer from "../Footer/Footer";
 
 export default function Sidebar() {
   const loggedIn = useSelector((store) => store.user.activeUser.loggedIn);
@@ -32,13 +39,25 @@ export default function Sidebar() {
     const newUserMenu = [];
     if (loggedIn) {
       if (role === "admin") {
-        newUserMenu.push({ name: "Dashboard", link: "/admin" });
+        newUserMenu.push({
+          name: "Dashboard",
+          link: "/admin",
+          icon: DashboardIcon,
+        });
       }
-      newUserMenu.push({ name: "View cart", link: "/cart" });
-      newUserMenu.push({ name: "Profile", link: "/profile" });
-      newUserMenu.push({ name: "Logout", link: "/logout" });
+      newUserMenu.push({
+        name: "View cart",
+        link: "/cart",
+        icon: ShoppingCartIcon,
+      });
+      newUserMenu.push({
+        name: "Profile",
+        link: "/profile",
+        icon: AccountCircleIcon,
+      });
+      newUserMenu.push({ name: "Logout", link: "/logout", icon: LogoutIcon });
     } else {
-      newUserMenu.push({ name: "Login", link: "/login" });
+      newUserMenu.push({ name: "Login", link: "/login", icon: LoginIcon });
     }
     setUserMenu(newUserMenu);
   }, [loggedIn]);
@@ -61,19 +80,28 @@ export default function Sidebar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      <IconButton
+        ccolor="#fff"
+        onClick={toggleDrawer(anchor, true)}
+        sx={{ left: 205 }}
+      >
+        <CloseIcon />
+      </IconButton>
+
       <List>
         {userMenu.map((item, index) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton onClick={() => handleClick(item)}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
+              <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+
       <Divider />
+
+      <Footer sx={{ mt: "60vh", mb: 4 }} />
     </Box>
   );
 
