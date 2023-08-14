@@ -14,6 +14,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { chunk } from "lodash";
+import ProductFilterSidebar from "../../components/Sidebar/ProductFilterSidebar";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -49,34 +50,28 @@ const Home = () => {
 
   return (
     <Grid container spacing={2} justifyContent="center">
+      <Grid item xs={true} lg={12} ml={2}>
+        <ProductFilterSidebar />
+      </Grid>
+
       <Grid item container lg={8} spacing={2}>
-        {productsChunks.map((product, index) => {
-          const isFirstItem = index === 0;
+        {productsChunks.map((product) => {
           return (
-            <Grid
-              key={product._id}
-              item
-              xs={isFirstItem ? 12 : 4}
-              md={isFirstItem ? 12 : 3}
-              lg={isFirstItem ? 12 : 3}
-            >
-              <Card
-                sx={{ maxWidth: isFirstItem ? "100%" : 345 }}
-                onClick={() => showProduct(product._id)}
-              >
+            <Grid key={product._id} item>
+              <Card onClick={() => showProduct(product._id)}>
                 <CardActionArea>
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "center", // Center the image horizontally
                       alignItems: "center", // Center the image vertically
-                      height: isFirstItem ? 300 : 140, // Set the container height
+                      height: 140, // Set the container height
                     }}
                   >
                     <CardMedia
                       component="img"
                       sx={{
-                        height: isFirstItem ? 300 : 140, // Set the image height
+                        height: 140, // Set the image height
                         width: "auto",
                       }}
                       image={process.env.REACT_APP_BASE_URL + product.image}
