@@ -10,6 +10,12 @@ import User from "./pages/user";
 import Cart from "./pages/cart";
 import SignUp from "./components/SignUp/SignUp";
 import Admin from "./pages/admin";
+import Users from "./pages/admin/users";
+
+const loginBackground =
+  "url(https://images.unsplash.com/photo-1602330041000-4b8119482edf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80)";
+const signupBackground =
+  "url(https://images.unsplash.com/photo-1630618148126-74d18effc1b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)";
 
 function App() {
   return (
@@ -21,12 +27,7 @@ function App() {
       <Route
         path="/login"
         element={
-          <Layout
-            title=""
-            background={
-              "url(https://images.unsplash.com/photo-1602330041000-4b8119482edf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80)"
-            }
-          >
+          <Layout title="" background={loginBackground}>
             {<Login />}
           </Layout>
         }
@@ -34,12 +35,7 @@ function App() {
       <Route
         path="/signup"
         element={
-          <Layout
-            title=""
-            background={
-              "url(https://images.unsplash.com/photo-1630618148126-74d18effc1b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)"
-            }
-          >
+          <Layout title="" background={signupBackground}>
             {<SignUp />}
           </Layout>
         }
@@ -68,6 +64,10 @@ function App() {
       <Route
         path="/admin"
         element={<Layout title="Dashboard">{<Admin />}</Layout>}
+      />
+      <Route
+        path="/admin/users"
+        element={<Layout title="Dashboard">{<Users />}</Layout>}
       />
     </Routes>
   );
