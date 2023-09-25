@@ -25,7 +25,8 @@ const User = () => {
         <Grid
           container
           spacing={4}
-          direction="row"
+          padding={10}
+          direction="column"
           justifyContent="center"
           alignItems="center"
         >

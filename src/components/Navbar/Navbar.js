@@ -4,7 +4,7 @@ import { NavLink } from "../NavLink/NavLink";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ import Box from "@mui/material/Box";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
+import { Modal } from "@mui/material";
+import Button from "@mui/material/Button";
 
 function stringToColor(string) {
   let hash = 0;
@@ -52,6 +54,9 @@ export default function Navbar() {
   const firstname = useSelector((store) => store.user.userDetails.firstname);
   const lastname = useSelector((store) => store.user.userDetails.lastname);
   const { products } = useSelector((store) => store.user.activeUser.cart);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleClose = () => setOpenModal(false);
 
   return (
     <AppBar position="sticky">
@@ -99,16 +104,18 @@ export default function Navbar() {
                   mb: 1,
                 }}
               >
-                <NavLink ref={ref} to={"/profile"}>
-                  {loggedIn ? (
-                    <Avatar {...stringAvatar(`${firstname} ${lastname}`)} />
-                  ) : (
-                    <NavLink ref={ref} to={"/login"}>
-                      Log In
-                    </NavLink>
-                  )}
-                </NavLink>
+                {loggedIn && (
+                  <Avatar
+                    {...stringAvatar(`${firstname} ${lastname}`)}
+                    onClick={(e) => setOpenModal(true)}
+                  />
+                )}
               </Box>
+              {!loggedIn && (
+                <NavLink ref={ref} to={"/login"}>
+                  Log In
+                </NavLink>
+              )}
             </Grid>
             <Grid>
               <Box
@@ -120,6 +127,46 @@ export default function Navbar() {
               ></Box>
             </Grid>
           </Grid>
+          <Modal
+            open={openModal}
+            onClose={handleClose}
+            sx={{
+              display: "flex",
+              alignItems: "top",
+              justifyContent: "right",
+              paddingRight: "30px",
+              paddingTop: "50px",
+              // backdropFilter: "blur(2px)",
+            }}
+          >
+            <Box
+              sx={{
+                height: "150px",
+                border: "black 1px solid",
+                borderRadius: "15px",
+                backgroundColor: "#121212",
+              }}
+            >
+              <Grid
+                container
+                direction="column"
+                justifyContent="start"
+                alignItems="center"
+              >
+                <br />
+                <Button href="/profile">Edit Profile</Button>
+                <Button
+                  size="medium"
+                  onClick={() => {
+                    setOpenModal(false);
+                    navigate("/logout");
+                  }}
+                >
+                  Log Out
+                </Button>
+              </Grid>
+            </Box>
+          </Modal>
         </Grid>
       </Toolbar>
     </AppBar>
