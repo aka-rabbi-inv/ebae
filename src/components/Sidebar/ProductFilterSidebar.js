@@ -14,16 +14,15 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import SearchIcon from "@mui/icons-material/Search";
 import Checkbox from "@mui/material/Checkbox";
-import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
-import UnfoldLessIcon from "@mui/icons-material/UnfoldLess";
 import { useForm } from "react-hook-form";
 import { getFilteredProducts, getProducts } from "../../store/action/product";
 import {
   setFilter,
-  setDefaultFilter,
   setCategoryFilter,
 } from "../../store/reducer/productsReducer";
 import { useDispatch } from "react-redux";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 
 export default function ProductFilterSidebar() {
   let filter = useSelector((store) => store.products.filter);
@@ -34,16 +33,18 @@ export default function ProductFilterSidebar() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
-    console.log("clearing filters");
+    console.log(filter);
   }, [filter]);
 
   const filterData = (data) => {
+    console.log(data);
     dispatch(setFilter(data));
-    dispatch(getFilteredProducts());
+    dispatch(getFilteredProducts(data));
   };
 
   return (
@@ -51,8 +52,8 @@ export default function ProductFilterSidebar() {
       <React.Fragment>
         <Tooltip title="Filters" placement="right-end">
           <Checkbox
-            icon={<UnfoldMoreIcon />}
-            checkedIcon={<UnfoldLessIcon />}
+            icon={<FilterAltIcon />}
+            checkedIcon={<FilterAltOffIcon />}
             onClick={() => setShowFilters(!showFilters)}
           />
         </Tooltip>
@@ -82,24 +83,21 @@ export default function ProductFilterSidebar() {
               </ListItem>
               <ListItem disablePadding>
                 <FormControl sx={{ marginTop: "20px" }}>
-                  <InputLabel id="demo-simple-select-label">
-                    Category
-                  </InputLabel>
+                  <InputLabel id="simple-select-label">Category</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="simple-select-label"
+                    id="simple-select"
                     value={filter.category}
                     label="Category"
                     {...register("category", {
                       onChange: (e) => {
-                        console.log(e.target.value);
                         dispatch(setCategoryFilter(e.target.value));
                       },
                     })}
                   >
-                    <MenuItem value={"All"}>All Products</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={"Other"}>All Products</MenuItem>
+                    <MenuItem value={"Toys"}>Toys</MenuItem>
+                    <MenuItem value={"Gadgets"}>Gadgets</MenuItem>
                   </Select>
                 </FormControl>
               </ListItem>
@@ -116,7 +114,7 @@ export default function ProductFilterSidebar() {
                   size="small"
                   color="error"
                   onClick={() => {
-                    dispatch(setDefaultFilter());
+                    reset();
                     dispatch(getProducts());
                   }}
                 >

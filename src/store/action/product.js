@@ -4,7 +4,11 @@ import {
   setProductDetails,
   setEditProduct,
 } from "../../store/reducer/productsReducer";
-import { setOpen, setConfirm } from "../../store/reducer/loaderReducer";
+import {
+  setOpen,
+  setConfirm,
+  setToast,
+} from "../../store/reducer/loaderReducer";
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -13,6 +17,25 @@ export const getProducts = () => {
       `${process.env.REACT_APP_BASE_URL}/products`
     );
     dispatch(setProducts(response.data));
+    dispatch(setOpen(false));
+    return response.data;
+  };
+};
+
+export const getFilteredProducts = (filters) => {
+  return async (dispatch) => {
+    dispatch(setOpen(true));
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/products`
+    );
+    const products = response.data.filter((product) => {
+      return (
+        product.title.toLowerCase().includes(filters.search.toLowerCase()) &&
+        product.category.name === filters.category
+      );
+    });
+    if (products.length === 0) dispatch(setToast("No products found"));
+    dispatch(setProducts(products));
     dispatch(setOpen(false));
     return response.data;
   };
