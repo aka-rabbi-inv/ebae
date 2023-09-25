@@ -23,11 +23,6 @@ const productsSlice = createSlice({
       stock: 0,
       category: {},
     },
-    filter: {
-      search: "",
-      category: "Other",
-      maxResults: 50,
-    },
   },
   reducers: {
     setProducts: (state, action) => {
@@ -43,9 +38,6 @@ const productsSlice = createSlice({
     setEditProduct: (state, action) => {
       state.editProduct = action.payload;
     },
-    setFilter: (state, action) => {
-      state.filter = action.payload;
-    },
   },
 });
 
@@ -54,7 +46,6 @@ export const {
   setProductInfo,
   setProductDetails,
   setEditProduct,
-  setFilter,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
