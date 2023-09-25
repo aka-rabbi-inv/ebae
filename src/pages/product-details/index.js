@@ -83,11 +83,11 @@ const ProductDetails = () => {
                 <Link
                   underline="hover"
                   color="inherit"
-                  href="/material-ui/getting-started/installation/"
+                  href={`/?search=&category=${product[0].category?.name}`}
                 >
                   {product[0].category && product[0].category.name}
                 </Link>
-                <Typography color="text.primary">{product[0].id}</Typography>
+                <Typography color="text.primary">{product[0].title}</Typography>
               </Breadcrumbs>
             </Grid>
             {/* Product image section */}
