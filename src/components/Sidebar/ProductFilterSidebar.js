@@ -1,8 +1,7 @@
 import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Input from "@mui/material/Input";
 import Tooltip from "@mui/material/Tooltip";
 import { Box } from "@mui/material";
@@ -16,35 +15,36 @@ import SearchIcon from "@mui/icons-material/Search";
 import Checkbox from "@mui/material/Checkbox";
 import { useForm } from "react-hook-form";
 import { getFilteredProducts, getProducts } from "../../store/action/product";
-import {
-  setFilter,
-  setCategoryFilter,
-} from "../../store/reducer/productsReducer";
 import { useDispatch } from "react-redux";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductFilterSidebar() {
-  let filter = useSelector((store) => store.products.filter);
+  let [search, setSearch] = useState("");
+  let [category, setCategory] = useState("Other");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [showFilters, setShowFilters] = React.useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
-    console.log(filter);
-  }, [filter]);
+    navigate(`/?search=${search}&category=${category}`);
+    dispatch(getFilteredProducts({ search, category }));
+  }, [search, category]);
 
   const filterData = (data) => {
     console.log(data);
-    dispatch(setFilter(data));
-    dispatch(getFilteredProducts(data));
+    // dispatch(setFilter(data));
+    setSearch(data.search);
+    setCategory(data.category);
   };
 
   return (
@@ -71,7 +71,6 @@ export default function ProductFilterSidebar() {
                   </InputLabel>
                   <Input
                     id="input-with-icon-adornment"
-                    placeholder={filter.search}
                     startAdornment={
                       <InputAdornment position="start">
                         <SearchIcon />
@@ -87,11 +86,10 @@ export default function ProductFilterSidebar() {
                   <Select
                     labelId="simple-select-label"
                     id="simple-select"
-                    value={filter.category}
                     label="Category"
                     {...register("category", {
                       onChange: (e) => {
-                        dispatch(setCategoryFilter(e.target.value));
+                        dispatch(setValue(e.target.value));
                       },
                     })}
                   >

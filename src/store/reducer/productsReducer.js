@@ -46,9 +46,6 @@ const productsSlice = createSlice({
     setFilter: (state, action) => {
       state.filter = action.payload;
     },
-    setCategoryFilter: (state, action) => {
-      state.filter.category = action.payload;
-    },
   },
 });
 
@@ -58,7 +55,6 @@ export const {
   setProductDetails,
   setEditProduct,
   setFilter,
-  setCategoryFilter,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

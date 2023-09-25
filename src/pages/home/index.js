@@ -8,13 +8,16 @@ import { CardActionArea } from "@mui/material";
 import BackDrop from "../../components/BackDrop/BackDrop";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../store/action/product";
+import { getProducts, getFilteredProducts } from "../../store/action/product";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { chunk } from "lodash";
 import ProductFilterSidebar from "../../components/Sidebar/ProductFilterSidebar";
+import { useSearchParams, useLocation } from "react-router-dom";
+
+const FILTER_OPTIONS_LENGTH = 2;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,10 +27,25 @@ const Home = () => {
   const [productsChunks, setProductsChunks] = useState([]);
   const [productsLength, setProductsLength] = useState(1);
   const [page, setPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const handlePagination = (event, value) => {
     setPage(value - 1);
   };
+
+  useEffect(() => {
+    if (searchParams.size === FILTER_OPTIONS_LENGTH) {
+      dispatch(
+        getFilteredProducts({
+          search: searchParams.get("search"),
+          category: searchParams.get("category"),
+        })
+      );
+    } else {
+      dispatch(getProducts());
+    }
+  }, [location]);
 
   useEffect(() => {
     if (products.length) {
