@@ -61,12 +61,12 @@ const Home = () => {
   };
 
   return (
-    <Grid container spacing={2} justifyContent="center">
+    <Grid container spacing={2} direction="column" justifyContent="center">
       <Grid item xs={true} lg={12} ml={2}>
         <ProductFilterSidebar />
       </Grid>
 
-      <Grid item container lg={8} spacing={2}>
+      <Grid item container lg={8} md={6} spacing={2} margin={5} className="">
         {productsChunks &&
           productsChunks.map((product) => {
             return (
@@ -102,7 +102,7 @@ const Home = () => {
             );
           })}
       </Grid>
-      <Grid item container lg={8} spacing={2}>
+      <Grid item container lg={8} spacing={2} margin={5}>
         <Stack spacing={2} mt={4}>
           <Pagination
             count={productsLength}

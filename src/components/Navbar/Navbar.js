@@ -130,21 +130,22 @@ export default function Navbar() {
           <Modal
             open={openModal}
             onClose={handleClose}
+            className="fadeIn"
             sx={{
               display: "flex",
               alignItems: "top",
               justifyContent: "right",
               paddingRight: "30px",
-              paddingTop: "50px",
+              paddingTop: "40px",
               // backdropFilter: "blur(2px)",
             }}
           >
             <Box
               sx={{
                 height: "150px",
-                border: "black 1px solid",
-                borderRadius: "15px",
-                backgroundColor: "#121212",
+                width: "15%",
+                borderRadius: "10px",
+                backgroundColor: "#2D2D2D",
               }}
             >
               <Grid

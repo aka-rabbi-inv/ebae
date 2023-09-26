@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "@mui/material";
 
 export default function ProductFilterSidebar() {
   let [search, setSearch] = useState("");
@@ -49,6 +50,7 @@ export default function ProductFilterSidebar() {
     // dispatch(setFilter(data));
     setSearch(data.search);
     setCategory(data.category);
+    setShowFilters(false);
   };
 
   return (
@@ -61,11 +63,24 @@ export default function ProductFilterSidebar() {
             onClick={() => setShowFilters(!showFilters)}
           />
         </Tooltip>
-        {showFilters ? (
+        <Modal
+          open={showFilters}
+          onClose={() => setShowFilters(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
           <Box
             component="form"
             onSubmit={handleSubmit(filterData)}
-            sx={{ mt: 3 }}
+            sx={{
+              mt: 16,
+              ml: 5,
+              pl: 5,
+              border: "black 1px solid",
+              borderRadius: "20px",
+              width: "30%",
+              backgroundColor: "#2D2D2D",
+            }}
           >
             <List className="fadeIn">
               <ListItem disablePadding>
@@ -130,7 +145,7 @@ export default function ProductFilterSidebar() {
               </ListItem>
             </List>
           </Box>
-        ) : null}
+        </Modal>
       </React.Fragment>
     </div>
   );
