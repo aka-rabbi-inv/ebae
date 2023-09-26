@@ -17,7 +17,6 @@ import { useForm } from "react-hook-form";
 import { getProducts } from "../../store/action/product";
 import { useDispatch } from "react-redux";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@mui/material";
 
@@ -59,7 +58,7 @@ export default function ProductFilterSidebar() {
         <Tooltip title="Filters" placement="right-end">
           <Checkbox
             icon={<FilterAltIcon />}
-            checkedIcon={<FilterAltOffIcon />}
+            checkedIcon={<FilterAltIcon />}
             onClick={() => setShowFilters(!showFilters)}
           />
         </Tooltip>
