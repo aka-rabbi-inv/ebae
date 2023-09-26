@@ -27,7 +27,7 @@ const Home = () => {
   const [productsChunks, setProductsChunks] = useState([]);
   const [productsLength, setProductsLength] = useState(1);
   const [page, setPage] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const location = useLocation();
 
   const handlePagination = (event, value) => {
@@ -35,6 +35,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    console.log(searchParams.size);
     if (searchParams.size === FILTER_OPTIONS_LENGTH) {
       dispatch(
         getFilteredProducts({
@@ -48,16 +49,9 @@ const Home = () => {
   }, [location]);
 
   useEffect(() => {
-    if (products.length) {
-      return;
-    }
-    dispatch(getProducts());
-  }, []);
-
-  useEffect(() => {
-    if (!products || products.length === 0) return;
+    if (!products) return;
     const productsCopy = [...products];
-    const data = chunk(productsCopy.reverse(), 10);
+    const data = products.length > 0 ? chunk(productsCopy.reverse(), 10) : [];
     setProductsLength(data.length);
     setProductsChunks(data[page]);
   }, [products, page]);
@@ -73,39 +67,40 @@ const Home = () => {
       </Grid>
 
       <Grid item container lg={8} spacing={2}>
-        {productsChunks.map((product) => {
-          return (
-            <Grid key={product._id} item>
-              <Card onClick={() => showProduct(product._id)}>
-                <CardActionArea>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center", // Center the image horizontally
-                      alignItems: "center", // Center the image vertically
-                      height: 140, // Set the container height
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
+        {productsChunks &&
+          productsChunks.map((product) => {
+            return (
+              <Grid key={product._id} item>
+                <Card onClick={() => showProduct(product._id)}>
+                  <CardActionArea>
+                    <Box
                       sx={{
-                        height: 140, // Set the image height
-                        width: "auto",
+                        display: "flex",
+                        justifyContent: "center", // Center the image horizontally
+                        alignItems: "center", // Center the image vertically
+                        height: 140, // Set the container height
                       }}
-                      image={process.env.REACT_APP_BASE_URL + product.image}
-                      alt="product image"
-                    />
-                  </Box>
-                  <CardContent>
-                    <Typography gutterBottom variant="p" component="div">
-                      {product.title}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          );
-        })}
+                    >
+                      <CardMedia
+                        component="img"
+                        sx={{
+                          height: 140, // Set the image height
+                          width: "auto",
+                        }}
+                        image={process.env.REACT_APP_BASE_URL + product.image}
+                        alt="product image"
+                      />
+                    </Box>
+                    <CardContent>
+                      <Typography gutterBottom variant="p" component="div">
+                        {product.title}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            );
+          })}
       </Grid>
       <Grid item container lg={8} spacing={2}>
         <Stack spacing={2} mt={4}>

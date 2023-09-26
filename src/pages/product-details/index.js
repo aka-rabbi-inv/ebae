@@ -83,7 +83,7 @@ const ProductDetails = () => {
                 <Link
                   underline="hover"
                   color="inherit"
-                  href={`/?search=&category=${product[0].category?.name}`}
+                  href={`/?search=&category=${product[0].category?._id}`}
                 >
                   {product[0].category && product[0].category.name}
                 </Link>

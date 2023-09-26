@@ -4,11 +4,7 @@ import {
   setProductDetails,
   setEditProduct,
 } from "../../store/reducer/productsReducer";
-import {
-  setOpen,
-  setConfirm,
-  setToast,
-} from "../../store/reducer/loaderReducer";
+import { setOpen, setConfirm } from "../../store/reducer/loaderReducer";
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -25,16 +21,24 @@ export const getProducts = () => {
 export const getFilteredProducts = (filters) => {
   return async (dispatch) => {
     dispatch(setOpen(true));
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/products`
-    );
-    const products = response.data.filter((product) => {
-      return (
-        product.title.toLowerCase().includes(filters.search.toLowerCase()) &&
-        product.category.name === filters.category
+    let response;
+    let products = [];
+    if (filters.category && filters.category.length > 0) {
+      response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/products/category/${filters.category}`
       );
-    });
-    if (products.length === 0) dispatch(setToast("No products found"));
+    } else {
+      response = await axios.get(`${process.env.REACT_APP_BASE_URL}/products`);
+    }
+
+    if (filters.search) {
+      products = response.data.filter((product) => {
+        return product.title
+          .toLowerCase()
+          .includes(filters.search.toLowerCase());
+      });
+    } else products = response.data;
+
     dispatch(setProducts(products));
     dispatch(setOpen(false));
     return response.data;

@@ -14,7 +14,7 @@ import Select from "@mui/material/Select";
 import SearchIcon from "@mui/icons-material/Search";
 import Checkbox from "@mui/material/Checkbox";
 import { useForm } from "react-hook-form";
-import { getFilteredProducts, getProducts } from "../../store/action/product";
+import { getProducts } from "../../store/action/product";
 import { useDispatch } from "react-redux";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
@@ -22,7 +22,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductFilterSidebar() {
   let [search, setSearch] = useState("");
-  let [category, setCategory] = useState("Other");
+  let [category, setCategory] = useState("");
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = React.useState(false);
@@ -36,8 +37,11 @@ export default function ProductFilterSidebar() {
   } = useForm();
 
   useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return;
+    }
     navigate(`/?search=${search}&category=${category}`);
-    dispatch(getFilteredProducts({ search, category }));
   }, [search, category]);
 
   const filterData = (data) => {
@@ -93,9 +97,14 @@ export default function ProductFilterSidebar() {
                       },
                     })}
                   >
-                    <MenuItem value={"Other"}>All Products</MenuItem>
-                    <MenuItem value={"Toys"}>Toys</MenuItem>
-                    <MenuItem value={"Gadgets"}>Gadgets</MenuItem>
+                    <MenuItem value={""}>All Products</MenuItem>
+                    <MenuItem value={"643fa86920ffec0b7a408846"}>
+                      Others
+                    </MenuItem>
+                    <MenuItem value={"6512831c11f1ac04914b5236"}>Toys</MenuItem>
+                    <MenuItem value={"65126a7d11f1ac04914b5234"}>
+                      Gadgets
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </ListItem>
