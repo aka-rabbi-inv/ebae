@@ -13,11 +13,11 @@ code {
 }
 
 .fadeIn {
-  animation: fadeInAnimation 1.5s;
+  animation: fadeInAnimation 0.5s;
 }
 
 .fadeOut {
-  animation: fadeOutAnimation 1.5s;
+  animation: fadeOutAnimation 0.5s;
 }
 
 @keyframes fadeInAnimation {

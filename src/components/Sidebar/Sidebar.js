@@ -7,7 +7,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
@@ -19,7 +18,6 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LoginIcon from "@mui/icons-material/Login";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Footer from "../Footer/Footer";
 
 export default function Sidebar() {
   const loggedIn = useSelector((store) => store.user.activeUser.loggedIn);
@@ -100,8 +98,6 @@ export default function Sidebar() {
       </List>
 
       <Divider />
-
-      <Footer sx={{ position: "absolute", bottom: 12, left: 50 }} />
     </Box>
   );
 

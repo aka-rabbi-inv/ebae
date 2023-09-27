@@ -1,9 +1,9 @@
 import Navbar from "../Navbar/Navbar";
 import Box from "@mui/material/Box";
-import Footer from "../Footer/Footer";
 import Snackbar from "@mui/material/Snackbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setToast } from "../../store/reducer/loaderReducer";
+import Footer from "../Footer/Footer";
 
 export default function Layout({ children, title, background }) {
   document.title = title;
@@ -20,7 +20,23 @@ export default function Layout({ children, title, background }) {
     >
       <Navbar />
 
-      <Box marginTop={5}>{children}</Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
+        <Box marginTop={5}>{children}</Box>
+        <Footer
+          sx={{
+            borderTop: "1px solid #000",
+            marginTop: "auto",
+            p: 4,
+          }}
+          component="footer"
+        />
+      </Box>
 
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
