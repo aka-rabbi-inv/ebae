@@ -85,6 +85,17 @@ export const userEdit = (data, isCurrentUser) => {
   };
 };
 
+export const userDelete = (data) => {
+  return async (dispatch) => {
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/user/${data.id}`, {
+      headers: {
+        Authorization: `bearer ${data.token}`,
+      },
+    });
+    window.location.reload();
+  };
+};
+
 export const getCurrentUser = (token) => {
   return async (dispatch) => {
     dispatch(setOpen(true));
